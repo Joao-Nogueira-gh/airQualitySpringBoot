@@ -45,6 +45,23 @@ public class AirQuality {
 	public void setO3(double o3) {
 		this.o3 = o3;
 	}
+	public String evalO3(){
+		if (o3<=60){
+			return "very good";
+		}
+		else if (o3<=120){
+			return "good";
+		}
+		else if (o3<=180){
+			return "medium";
+		}
+		else if (o3<=240){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
+	}
 
 	public double getSo2() {
 		return so2;
@@ -52,6 +69,23 @@ public class AirQuality {
 
 	public void setSo2(double so2) {
 		this.so2 = so2;
+	}
+	public String evalSO2(){
+		if (so2<=100){
+			return "very good";
+		}
+		else if (so2<=200){
+			return "good";
+		}
+		else if (so2<=350){
+			return "medium";
+		}
+		else if (so2<=500){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
 	}
 
 	public double getNo2() {
@@ -61,6 +95,23 @@ public class AirQuality {
 	public void setNo2(double no2) {
 		this.no2 = no2;
 	}
+	public String evalNO2(){
+		if (no2<=50){
+			return "very good";
+		}
+		else if (no2<=100){
+			return "good";
+		}
+		else if (no2<=200){
+			return "medium";
+		}
+		else if (no2<=400){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
+	}
 
 	public double getCo() {
 		return co;
@@ -68,6 +119,23 @@ public class AirQuality {
 
 	public void setCo(double co) {
 		this.co = co;
+	}
+	public String evalCO(){
+		if (co<=99){
+			return "very good";
+		}
+		else if (co<=139){
+			return "good";
+		}
+		else if (co<=199){
+			return "medium";
+		}
+		else if (co<=399){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
 	}
 
 	public double getPm10() {
@@ -77,6 +145,23 @@ public class AirQuality {
 	public void setPm10(double pm10) {
 		this.pm10 = pm10;
 	}
+	public String evalPM10(){
+		if (pm10<=15){
+			return "very good";
+		}
+		else if (pm10<=30){
+			return "good";
+		}
+		else if (pm10<=50){
+			return "medium";
+		}
+		else if (pm10<=100){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
+	}
 
 	public double getPm25() {
 		return pm25;
@@ -85,6 +170,23 @@ public class AirQuality {
 	public void setPm25(double pm25) {
 		this.pm25 = pm25;
 	}
+	public String evalPM25(){
+		if (pm25<=10){
+			return "very good";
+		}
+		else if (pm25<=20){
+			return "good";
+		}
+		else if (pm25<=30){
+			return "medium";
+		}
+		else if (pm25<=60){
+			return "bad";
+		}
+		else {
+			return "very bad";
+		}
+	}
 
 	public int getAqi() {
 		return aqi;
@@ -92,6 +194,26 @@ public class AirQuality {
 
 	public void setAqi(int aqi) {
 		this.aqi = aqi;
+	}
+	public String evalAQI(){
+		if (aqi<=50){
+			return "good";
+		}
+		else if (aqi<=100){
+			return "moderate";
+		}
+		else if (aqi<=150){
+			return "unhealthy for sensitive groups";
+		}
+		else if (aqi<=200){
+			return "unhealthy";
+		}
+		else if (aqi<=300){
+			return "very unhealthy";
+		}
+		else {
+			return "hazardous";
+		}
 	}
 
 	public String getCity() {

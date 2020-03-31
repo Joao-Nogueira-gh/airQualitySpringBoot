@@ -27,9 +27,9 @@ public class AirQualityController {
 	}
 
 	@PostMapping("/home/results")
-	public String indexResults(@ModelAttribute AirQuality airQuality, HttpSession session) throws IOException {
+	public String indexResults(@ModelAttribute AirQuality airQuality, Model extra) throws IOException {
 		if (airQuality.getCity()=="" || airQuality.getCountry()==""){
-			return "invalid input";
+			return "error";
 		}
 		ArrayList<String> l=new ArrayList<>();
 		l.add(airQuality.getCity());
@@ -43,7 +43,7 @@ public class AirQualityController {
 				;
 			}
 			else if (code==204){
-				return "invalid input";
+				return "error";
 			}
 			System.out.println(values[1]);
 			JsonParser jp=JsonParserFactory.getJsonParser();
@@ -60,40 +60,44 @@ public class AirQualityController {
 				switch (key) {
 					case "o3":
 						airQuality.setO3(Double.parseDouble(value));
+						extra.addAttribute("o3", airQuality.evalO3());
 						break;
 					case "so2":
 						airQuality.setSo2(Double.parseDouble(value));
+						extra.addAttribute("so2", airQuality.evalSO2());
 						break;
 					case "no2":
 						airQuality.setNo2(Double.parseDouble(value));
+						extra.addAttribute("no2", airQuality.evalNO2());
 						break;
 					case "aqi":
 						airQuality.setAqi(Integer.parseInt(value));
+						extra.addAttribute("aqi", airQuality.evalAQI());
 						break;
 					case "co":
 						airQuality.setCo(Double.parseDouble(value));
+						extra.addAttribute("co", airQuality.evalCO());
 						break;
 					case "pm10":
 						airQuality.setPm10(Double.parseDouble(value));
+						extra.addAttribute("pm10", airQuality.evalPM10());
 						break;
 					case "pm25":
 						airQuality.setPm25(Double.parseDouble(value));
+						extra.addAttribute("pm25", airQuality.evalPM25());
 						break;
 				
 					default:
 						break;
 				}
+				if (airQuality.getAqi()<100){
+					extra.addAttribute("bgimg", "0");
+				}
+				else{
+					extra.addAttribute("bgimg", "1");
+				}
 			}
-			
-			String backsrc=null;
-			if (airQuality.getAqi()<100){
-				backsrc="/images/nonpol.jpg";
-				session.setAttribute("imgsrc", backsrc);
-			}
-			else{
-				backsrc="/images/pol.jpg";
-				session.setAttribute("imgsrc", backsrc);
-			}
+			return "results";
 		}
 		return "results";
 	}

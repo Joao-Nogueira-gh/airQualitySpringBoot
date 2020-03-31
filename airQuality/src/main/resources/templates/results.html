@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
 <style>
   body,
   h1 {
@@ -15,36 +16,98 @@
   html {
     height: 100%
   }
-
-  .bgimg {
-    background-image: url('${session.imgsrc}');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-  }
 </style>
 
-<body>
+<body th:style="${ bgimg == '0' ? 'background-image: url(''/images/nonpol.jpg'');height: 100%;background-position: center;background-size: cover;background-repeat: no-repeat;' : 'background-image: url(''/images/pol.jpg'');height: 100%;background-position: center;background-size: cover;background-repeat: no-repeat;' }">
   <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
       <a href="/home" th:href="@{/home}" class="btn btn-large btn-success">Air Quality</a>
     </div>
-    <div class="w3-display-middle">
-      <h1>Result</h1>
-      <p th:text="'city: ' + ${airQuality.city}" />
-      <p th:text="'country: ' + ${airQuality.country}" />
-      <h1 th:text="'o3: ' +${airQuality.o3}"></h1>
-      <h1 th:text="'so2: ' +${airQuality.so2}"></h1>
-      <h1 th:text="'no2: ' +${airQuality.no2}"></h1>
-      <h1 th:text="'aqi: ' +${airQuality.aqi}"></h1>
-      <h1 th:text="'co: ' +${airQuality.co}"></h1>
-      <h1 th:text="'pm10: ' +${airQuality.pm10}"></h1>
-      <h1 th:text="'pm25: ' +${airQuality.pm25}"></h1>
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="headerResult" <b th:text="'Results for ' +${airQuality.city} +', '+${airQuality.country} "
+      style="color: black;font-weight: 400;background-color: gray;" />
+    </h1>
+    <table style="width:50%;color:blue;font-size: large;" bgcolor="#A8A8A8" class="resultTable" cellspacing="15">
+      <colgroup>
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="75%">
+      </colgroup>
+
+      <tr>
+        <td>O3</td>
+        <td th:text="${airQuality.o3}"></td>
+        <td th:switch="${o3}">
+          <span th:case="'very bad'" th:text="${o3}" style="background-color: purple;"></span>
+          <span th:case="'bad'" th:text="${o3}" style="background-color: red;"></span>
+          <span th:case="'medium'" th:text="${o3}" style="background-color: orange;"></span>
+          <span th:case="'good'" th:text="${o3}" style="background-color: yellow;"></span>
+          <span th:case="'very good'" th:text="${o3}" style="background-color: green;"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>SO2</td>
+        <td th:text="${airQuality.so2}"></td>
+        <td th:switch="${so2}">
+          <span th:case="'very bad'" th:text="${so2}" style="background-color: purple;"></span>
+          <span th:case="'bad'" th:text="${so2}" style="background-color: red;"></span>
+          <span th:case="'medium'" th:text="${so2}" style="background-color: orange;"></span>
+          <span th:case="'good'" th:text="${so2}" style="background-color: yellow;"></span>
+          <span th:case="'very good'" th:text="${so2}" style="background-color: green;"></span>
+        </td>
+      </tr>
+      <td>NO2</td>
+      <td th:text="${airQuality.no2}"></td>
+      <td th:switch="${no2}">
+        <span th:case="'very bad'" th:text="${no2}" style="background-color: purple;"></span>
+        <span th:case="'bad'" th:text="${no2}" style="background-color: red;"></span>
+        <span th:case="'medium'" th:text="${no2}" style="background-color: orange;"></span>
+        <span th:case="'good'" th:text="${no2}" style="background-color: yellow;"></span>
+        <span th:case="'very good'" th:text="${no2}" style="background-color: green;"></span>
+      </td>
+      </tr>
+      <tr>
+        <td>PM10</td>
+        <td th:text="${airQuality.pm10}"></td>
+        <td th:switch="${pm10}">
+          <span th:case="'very bad'" th:text="${pm10}" style="background-color: purple;"></span>
+          <span th:case="'bad'" th:text="${pm10}" style="background-color: red;"></span>
+          <span th:case="'medium'" th:text="${pm10}" style="background-color: orange;"></span>
+          <span th:case="'good'" th:text="${pm10}" style="background-color: yellow;"></span>
+          <span th:case="'very good'" th:text="${pm10}" style="background-color: green;"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>PM25</td>
+        <td th:text="${airQuality.pm25}"></td>
+        <td th:switch="${pm25}">
+          <span th:case="'very bad'" th:text="${pm25}" style="background-color: purple;"></span>
+          <span th:case="'bad'" th:text="${pm25}" style="background-color: red;"></span>
+          <span th:case="'medium'" th:text="${pm25}" style="background-color: orange;"></span>
+          <span th:case="'good'" th:text="${pm25}" style="background-color: yellow;"></span>
+          <span th:case="'very good'" th:text="${pm25}" style="background-color: green;"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>AQI</td>
+        <td th:text="${airQuality.aqi}"></td>
+        <td th:switch="${aqi}">
+          <span th:case="'hazardous'" th:text="${aqi}" style="background-color: brown;"></span>
+          <span th:case="'very unhealthy'" th:text="${aqi}" style="background-color: purple;"></span>
+          <span th:case="'unhealthy'" th:text="${aqi}" style="background-color: red;"></span>
+          <span th:case="'unhealthy for sensitive groups'" th:text="${aqi}" style="background-color: orange;"></span>
+          <span th:case="'moderate'" th:text="${aqi}" style="background-color: yellow;"></span>
+          <span th:case="'good'" th:text="${aqi}" style="background-color: green;"></span>
+        </td>
+      </tr>
+    </table>
+    <h4 class="headerResult" style="display: inline-block;">
       <a href="/home" th:href="@{/home}" class="btn btn-large btn-success">Go back</a>
-    </div>
-    <div class="w3-display-bottomleft w3-padding-large">
-      João Nogueira, TQS, UA
-    </div>
+    </h1>
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+    João Nogueira, TQS, UA
   </div>
 
 </body>
