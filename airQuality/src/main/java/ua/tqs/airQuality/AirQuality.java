@@ -9,6 +9,11 @@ public class AirQuality {
 	public AirQuality(){
 		this.timestamp=Instant.now();
 	}
+	public AirQuality(String city, String country) {
+		this.city = city;
+		this.country = country;
+		this.timestamp = Instant.now();
+	}
 	public AirQuality(double o3, double so2, double no2, double co, double pm10, double pm25, int aqi) {
 		this.o3 = o3;
 		this.so2 = so2;
@@ -241,6 +246,10 @@ public class AirQuality {
 		Duration between=Duration.between(this.timestamp, t2);
 		long secs = between.getSeconds();
 		return (secs>20) ? true : false ;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	

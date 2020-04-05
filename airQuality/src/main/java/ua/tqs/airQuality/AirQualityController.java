@@ -44,11 +44,11 @@ public class AirQualityController {
 		if (city=="" || country=="" || city==null || country==null || city.length()==0 || country.length()==0){
 			return new AirQuality();
 		}
-		aqService.checkAllExpiry();
 		if (aqService.exists(city, country)){
 			AirQuality cachedaq = aqService.getByCityAndCountry(city, country);
 			aqService.hit();
 			aqService.nreq();
+			aqService.checkAllExpiry();
 			return cachedaq;
 		}
 		else{
@@ -112,6 +112,7 @@ public class AirQualityController {
 				aqService.save(aq);
 				aqService.miss();
 				aqService.nreq();
+				aqService.checkAllExpiry();
 				return aq;
 			}
 		}
@@ -125,7 +126,6 @@ public class AirQualityController {
 		if (airQuality.getCity()=="" || airQuality.getCountry()==""){
 			return "error";
 		}
-		aqService.checkAllExpiry();
 		if (aqService.exists(airQuality.getCity(), airQuality.getCountry())){
 			AirQuality cachedaq = aqService.getByCityAndCountry(airQuality.getCity(), airQuality.getCountry());
 			aqService.hit();
@@ -156,6 +156,7 @@ public class AirQualityController {
 			extra.addAttribute("nreq", aqService.getNReq());
 			extra.addAttribute("hits", aqService.getHits());
 			extra.addAttribute("misses", aqService.getMisses());
+			aqService.checkAllExpiry();
 			return "results";
 		}
 		else{
@@ -231,6 +232,7 @@ public class AirQualityController {
 					extra.addAttribute("misses", aqService.getMisses());
 				}
 				aqService.save(airQuality);
+				aqService.checkAllExpiry();
 				return "results";
 			}
 			return "results";
