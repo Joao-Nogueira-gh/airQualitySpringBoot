@@ -106,6 +106,17 @@
       <a href="/home" th:href="@{/home}" class="btn btn-large btn-success">Go back</a>
     </h1>
   </div>
+  <div class="w3-display-right" style="margin-right: 30px;">
+    <h3 class="headerResult" <b th:text="'Number of requests : ' +${nreq} "
+      style="color: black;font-weight: 100;background-color: gray;" />
+    </h3>
+    <h3 class="headerResult" <b th:text="'Hits : ' +${hits} "
+      style="color: black;font-weight: 100;background-color: gray;" />
+    </h3>
+    <h3 class="headerResult" <b th:text="'Misses : ' +${misses} "
+      style="color: black;font-weight: 100;background-color: gray;" />
+    </h3>
+  </div>
   <div class="w3-display-bottomleft w3-padding-large">
     João Nogueira, TQS, UA
   </div>

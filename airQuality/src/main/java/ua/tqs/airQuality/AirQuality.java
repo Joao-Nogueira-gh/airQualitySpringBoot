@@ -1,11 +1,13 @@
 package ua.tqs.airQuality;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.Instant;
 
 @Entity
 public class AirQuality {
 	public AirQuality(){
-
+		this.timestamp=Instant.now();
 	}
 	public AirQuality(double o3, double so2, double no2, double co, double pm10, double pm25, int aqi) {
 		this.o3 = o3;
@@ -15,6 +17,7 @@ public class AirQuality {
 		this.pm10 = pm10;
 		this.pm25 = pm25;
 		this.aqi = aqi;
+		this.timestamp=Instant.now();
 	}
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +40,8 @@ public class AirQuality {
 	private String city;
 
 	private String country;
+
+	private Instant timestamp;
 
 	public double getO3() {
 		return o3;
@@ -230,6 +235,12 @@ public class AirQuality {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public boolean checkExpiry(Instant t2){
+		System.out.println(this.timestamp+"-"+t2);
+		Duration between=Duration.between(this.timestamp, t2);
+		long secs = between.getSeconds();
+		return (secs>20) ? true : false ;
 	}
 
 	
