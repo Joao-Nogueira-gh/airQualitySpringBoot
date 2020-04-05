@@ -11,9 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class AirQualityServiceTest {
@@ -26,92 +25,81 @@ public class AirQualityServiceTest {
 
     @BeforeEach
     public void setUp() {
-        Employee john = new Employee("john");
-        john.setId(11L);
+        AirQuality a1 = new AirQuality("Paris","France");
+        AirQuality a2 = new AirQuality("Aveiro","Portugal");
+        AirQuality a3 = new AirQuality("Kampur","India");
 
-        Employee bob = new Employee("bob");
-        Employee alex = new Employee("alex");
+        List<AirQuality> aqList = Arrays.asList(a1, a2, a3);
 
-        List<Employee> allEmployees = Arrays.asList(john, bob, alex);
-
-        Mockito.when(employeeRepository.findByName(john.getName())).thenReturn(john);
-        Mockito.when(employeeRepository.findByName(alex.getName())).thenReturn(alex);
-        Mockito.when(employeeRepository.findByName("wrong_name")).thenReturn(null);
-        Mockito.when(employeeRepository.findById(john.getId())).thenReturn(Optional.of(john));
-        Mockito.when(employeeRepository.findAll()).thenReturn(allEmployees);
-        Mockito.when(employeeRepository.findById(-99L)).thenReturn(Optional.empty());
+        Mockito.when(aqRepository.findByCityAndCountry(a1.getCity(),a1.getCountry())).thenReturn(a1);
+        Mockito.when(aqRepository.findByCityAndCountry("does not","exist")).thenReturn(null);
+        Mockito.when(aqRepository.findAll()).thenReturn(aqList);
     }
 
     @Test
-    public void whenValidName_thenEmployeeShouldBeFound() {
-        String name = "alex";
-        Employee found = employeeService.getEmployeeByName(name);
+    public void returnExistentAirQuality() {
+        String city="Paris";
+        String country="France";
+        AirQuality retrievedaq = aqService.getByCityAndCountry(city,country);
 
-        assertThat(found.getName()).isEqualTo(name);
+        assertThat(retrievedaq.getCity()).isEqualTo(city);
+        assertThat(retrievedaq.getCountry()).isEqualTo(country);
     }
 
     @Test
-    public void whenInValidName_thenEmployeeShouldNotBeFound() {
-        Employee fromDb = employeeService.getEmployeeByName("wrong_name");
-        assertThat(fromDb).isNull();
-
-        verifyFindByNameIsCalledOnce("wrong_name");
+    public void returnNullIfNotExistent() {
+        AirQuality retrievedaq = aqService.getByCityAndCountry("does not","exist");
+        assertThat(retrievedaq).isNull();
     }
 
     @Test
-    public void whenValidName_thenEmployeeShouldExist() {
-        boolean doesEmployeeExist = employeeService.exists("john");
-        assertThat(doesEmployeeExist).isEqualTo(true);
+    public void testExistFunctionTrue() {
+        String city="Paris";
+        String country="France";
+        boolean existentAq = aqService.exists(city,country);
+        assertThat(existentAq).isEqualTo(true);
 
-        verifyFindByNameIsCalledOnce("john");
+        verifyFindByCityAndCountryIsCalledOnce(city, country);
     }
 
     @Test
-    public void whenNonExistingName_thenEmployeeShouldNotExist() {
-        boolean doesEmployeeExist = employeeService.exists("some_name");
-        assertThat(doesEmployeeExist).isEqualTo(false);
+    public void testExistFunctionFalse() {
+        String city="does not";
+        String country="exist";
+        boolean existentAq = aqService.exists(city, country);
+        assertThat(existentAq).isEqualTo(false);
 
-        verifyFindByNameIsCalledOnce("some_name");
+        verifyFindByCityAndCountryIsCalledOnce(city, country);
     }
 
     @Test
-    public void whenValidId_thenEmployeeShouldBeFound() {
-        Employee fromDb = employeeService.getEmployeeById(11L);
-        assertThat(fromDb.getName()).isEqualTo("john");
+    public void testSeveralObjects() {
+        AirQuality a1 = new AirQuality("Paris","France");
+        AirQuality a2 = new AirQuality("Aveiro","Portugal");
+        AirQuality a3 = new AirQuality("Kampur","India");
 
-        verifyFindByIdIsCalledOnce();
+        List<AirQuality> aqList = aqService.getAll();
+        verifyFindAllIsCalledOnce();
+        assertThat(aqList).hasSize(3).extracting(AirQuality::getId).contains(a1.getId(), a2.getId(), a3.getId());
     }
-
     @Test
-    public void whenInValidId_thenEmployeeShouldNotBeFound() {
-        Employee fromDb = employeeService.getEmployeeById(-99L);
-        verifyFindByIdIsCalledOnce();
-        assertThat(fromDb).isNull();
+    public void testObjectDeletion(){
+        List<AirQuality> aqList=aqService.getAll();
+        AirQuality a1=aqList.get(0);
+
+        aqService.delete(a1);
+        when(aqService.getByCityAndCountry(a1.getCity(),a1.getCountry())).thenReturn(null);
+        Mockito.verify(aqRepository, VerificationModeFactory.times(1)).delete(a1);
+
     }
 
-    @Test
-    public void given3Employees_whengetAll_thenReturn3Records() {
-        Employee alex = new Employee("alex");
-        Employee john = new Employee("john");
-        Employee bob = new Employee("bob");
-
-        List<Employee> allEmployees = employeeService.getAllEmployees();
-        verifyFindAllEmployeesIsCalledOnce();
-        assertThat(allEmployees).hasSize(3).extracting(Employee::getName).contains(alex.getName(), john.getName(), bob.getName());
+    private void verifyFindByCityAndCountryIsCalledOnce(String city,String country) {
+        Mockito.verify(aqRepository, VerificationModeFactory.times(1)).findByCityAndCountry(city,country);
+        Mockito.reset(aqRepository);
     }
 
-    private void verifyFindByNameIsCalledOnce(String name) {
-        Mockito.verify(employeeRepository, VerificationModeFactory.times(1)).findByName(name);
-        Mockito.reset(employeeRepository);
-    }
-
-    private void verifyFindByIdIsCalledOnce() {
-        Mockito.verify(employeeRepository, VerificationModeFactory.times(1)).findById(Mockito.anyLong());
-        Mockito.reset(employeeRepository);
-    }
-
-    private void verifyFindAllEmployeesIsCalledOnce() {
-        Mockito.verify(employeeRepository, VerificationModeFactory.times(1)).findAll();
-        Mockito.reset(employeeRepository);
+    private void verifyFindAllIsCalledOnce() {
+        Mockito.verify(aqRepository, VerificationModeFactory.times(1)).findAll();
+        Mockito.reset(aqRepository);
     }
 }

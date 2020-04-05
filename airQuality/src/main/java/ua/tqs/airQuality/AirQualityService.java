@@ -13,6 +13,7 @@ public class AirQualityService {
     private int hit=0;
     private int miss=0;
     private int nreq=0;
+    private int expiry=20;
 
     @Autowired
     private AirQualityRepository aqRepo;
@@ -40,7 +41,7 @@ public class AirQualityService {
         Instant t1=Instant.now();
         List<AirQuality> aqList = this.getAll();
         for (AirQuality aq: aqList){
-            if (aq.checkExpiry(t1)){
+            if (aq.checkExpiry(t1,expiry)){
                 aqRepo.delete(aq);
             }
         }
@@ -63,6 +64,10 @@ public class AirQualityService {
     public int getNReq(){
         return this.nreq;
     }
+
+	public void setExpiry(int i) {
+        this.expiry=i;
+	}
 
 
 }

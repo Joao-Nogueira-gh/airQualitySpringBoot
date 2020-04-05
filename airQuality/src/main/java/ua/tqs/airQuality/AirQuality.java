@@ -241,11 +241,11 @@ public class AirQuality {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public boolean checkExpiry(Instant t2){
+	public boolean checkExpiry(Instant t2, int expiry){
 		System.out.println(this.timestamp+"-"+t2);
 		Duration between=Duration.between(this.timestamp, t2);
 		long secs = between.getSeconds();
-		return (secs>20) ? true : false ;
+		return (secs>expiry) ? true : false ;
 	}
 
 	public Long getId() {
