@@ -52,3 +52,8 @@ o pojo/dto
 pakcage name
 method complexity
 literal duplica
+
+------------
+jacoco
+get, setters,+1's, evaluateforcss
+enquanto q no controller é mainly a pag web, q foi avaliado com o selenium web driver
