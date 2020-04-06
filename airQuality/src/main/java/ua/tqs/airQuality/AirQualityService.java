@@ -26,10 +26,7 @@ public class AirQualityService {
         return aqRepo.findByCityAndCountry(city,country);
     }
     public boolean exists(String city,String country) {
-        if (aqRepo.findByCityAndCountry(city,country) != null) {
-            return true;
-        }
-        return false;
+        return aqRepo.findByCityAndCountry(city,country) != null;
     }
     public AirQuality save(AirQuality aq) {
         return aqRepo.save(aq);

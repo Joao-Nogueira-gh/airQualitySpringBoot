@@ -28,7 +28,7 @@ public class AirQualityController {
 	}
 	@GetMapping("/home/api/stats")
 	@ResponseBody
-	public HashMap<String,Integer> getCacheStats(){
+	public Map<String,Integer> getCacheStats(){
 		HashMap<String,Integer> stats=new HashMap<>();
 		stats.put("Number of requests", aqService.getNReq());
 		stats.put("Hits", aqService.getHits());
@@ -41,7 +41,7 @@ public class AirQualityController {
 	@ResponseBody
 	public AirQuality getAirQuality(@RequestParam(value = "city", defaultValue = "") String city, @RequestParam(value = "country", defaultValue = "") String country)
 			throws IOException {
-		if (city=="" || country=="" || city==null || country==null || city.length()==0 || country.length()==0){
+		if (city.equals("") || country.equals("")){
 			return new AirQuality();
 		}
 		if (aqService.exists(city, country)){
@@ -60,13 +60,9 @@ public class AirQualityController {
 			if (response!=null){
 				String[] values = response.split("next");
 				int code=Integer.parseInt(values[0]);
-				if (code==200){
-					;
-				}
-				else if (code==204){
+				if (code==204){
 					return new AirQuality();
 				}
-				System.out.println(values[1]);
 				JsonParser jp=JsonParserFactory.getJsonParser();
 				Map<String, Object> map = jp.parseMap(values[1]);
 				String data = map.get("data").toString();
@@ -123,14 +119,14 @@ public class AirQualityController {
 
 	@PostMapping("/home/results")
 	public String indexResults(@ModelAttribute AirQuality airQuality, Model extra) throws IOException {
-		if (airQuality.getCity()=="" || airQuality.getCountry()==""){
+		if (airQuality.getCity().equals("") || airQuality.getCountry().equals("")){
 			return "error";
 		}
 		if (aqService.exists(airQuality.getCity(), airQuality.getCountry())){
 			AirQuality cachedaq = aqService.getByCityAndCountry(airQuality.getCity(), airQuality.getCountry());
 			aqService.hit();
 			aqService.nreq();
-			//
+			
 			airQuality.setO3(cachedaq.getO3());
 			airQuality.setSo2(cachedaq.getSo2());
 			airQuality.setNo2(cachedaq.getNo2());
@@ -138,7 +134,7 @@ public class AirQualityController {
 			airQuality.setCo(cachedaq.getCo());
 			airQuality.setPm10(cachedaq.getPm10());
 			airQuality.setPm25(cachedaq.getPm25());
-			//
+			
 			extra.addAttribute("o3", airQuality.evalO3());
 			extra.addAttribute("so2", airQuality.evalSO2());
 			extra.addAttribute("no2", airQuality.evalNO2());
@@ -146,8 +142,8 @@ public class AirQualityController {
 			extra.addAttribute("co", airQuality.evalCO());
 			extra.addAttribute("pm10", airQuality.evalPM10());
 			extra.addAttribute("pm25", airQuality.evalPM25());
-			//
-			if (airQuality.getAqi()<100){
+			
+			if (airQuality.getAqi()<80){
 				extra.addAttribute("bgimg", "0");
 			}
 			else{
@@ -168,15 +164,11 @@ public class AirQualityController {
 			if (response!=null){
 				String[] values = response.split("next");
 				int code=Integer.parseInt(values[0]);
-				if (code==200){
-					;
-				}
-				else if (code==204){
+				if (code==204){
 					return "error";
 				}
 				aqService.miss();
 				aqService.nreq();
-				System.out.println(values[1]);
 				JsonParser jp=JsonParserFactory.getJsonParser();
 				Map<String, Object> map = jp.parseMap(values[1]);
 				String data = map.get("data").toString();
@@ -221,7 +213,7 @@ public class AirQualityController {
 						default:
 							break;
 					}
-					if (airQuality.getAqi()<100){
+					if (airQuality.getAqi()<80){
 						extra.addAttribute("bgimg", "0");
 					}
 					else{

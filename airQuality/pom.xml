@@ -59,6 +59,27 @@
 			<artifactId>json</artifactId>
 			<version>20190722</version>
 		</dependency>
+		<!-- selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- selenium / junit integration -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>selenium-jupiter</artifactId>
+            <version>3.3.4</version>
+            <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.7.0.1746</version>
+		</dependency>
 
 	</dependencies>
 
@@ -67,6 +88,25 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

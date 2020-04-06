@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,6 +90,7 @@ public class AirQualityServiceTest {
 
         aqService.delete(a1);
         when(aqService.getByCityAndCountry(a1.getCity(),a1.getCountry())).thenReturn(null);
+        assertNull(aqService.getByCityAndCountry(a1.getCity(), a1.getCountry()));
         Mockito.verify(aqRepository, VerificationModeFactory.times(1)).delete(a1);
 
     }

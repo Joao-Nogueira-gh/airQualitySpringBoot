@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
 public class HttpRequest {
     private HttpURLConnection con;
 
-    public HttpRequest(ArrayList<String> list) throws IOException {
+    public HttpRequest(List<String> list) throws IOException {
         String url = "https://api.weatherbit.io/v2.0/current/airquality";
         url += "?city=" + list.get(0) + "&country=" + list.get(1);
         url += "&key=aedcc0288929405daccb9096bbd743fd";
@@ -26,7 +26,7 @@ public class HttpRequest {
         con.connect();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }

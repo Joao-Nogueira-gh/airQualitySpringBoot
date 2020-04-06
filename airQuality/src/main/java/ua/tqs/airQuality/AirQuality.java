@@ -6,6 +6,12 @@ import java.time.Instant;
 
 @Entity
 public class AirQuality {
+	private static final String VERYGOOD = "very good";
+	private static final String GOOD = "good";
+	private static final String MEDIUM = "medium";
+	private static final String BAD = "bad";
+	private static final String VERYBAD = "very bad";
+
 	public AirQuality(){
 		this.timestamp=Instant.now();
 	}
@@ -57,157 +63,157 @@ public class AirQuality {
 	}
 	public String evalO3(){
 		if (o3<=60){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (o3<=120){
-			return "good";
+			return GOOD;
 		}
 		else if (o3<=180){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (o3<=240){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public double getSo2() {
 		return so2;
 	}
-
+	
 	public void setSo2(double so2) {
 		this.so2 = so2;
 	}
 	public String evalSO2(){
 		if (so2<=100){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (so2<=200){
-			return "good";
+			return GOOD;
 		}
 		else if (so2<=350){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (so2<=500){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public double getNo2() {
 		return no2;
 	}
-
+	
 	public void setNo2(double no2) {
 		this.no2 = no2;
 	}
 	public String evalNO2(){
 		if (no2<=50){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (no2<=100){
-			return "good";
+			return GOOD;
 		}
 		else if (no2<=200){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (no2<=400){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public double getCo() {
 		return co;
 	}
-
+	
 	public void setCo(double co) {
 		this.co = co;
 	}
 	public String evalCO(){
 		if (co<=99){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (co<=139){
-			return "good";
+			return GOOD;
 		}
 		else if (co<=199){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (co<=399){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public double getPm10() {
 		return pm10;
 	}
-
+	
 	public void setPm10(double pm10) {
 		this.pm10 = pm10;
 	}
 	public String evalPM10(){
 		if (pm10<=15){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (pm10<=30){
-			return "good";
+			return GOOD;
 		}
 		else if (pm10<=50){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (pm10<=100){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public double getPm25() {
 		return pm25;
 	}
-
+	
 	public void setPm25(double pm25) {
 		this.pm25 = pm25;
 	}
 	public String evalPM25(){
 		if (pm25<=10){
-			return "very good";
+			return VERYGOOD;
 		}
 		else if (pm25<=20){
-			return "good";
+			return GOOD;
 		}
 		else if (pm25<=30){
-			return "medium";
+			return MEDIUM;
 		}
 		else if (pm25<=60){
-			return "bad";
+			return BAD;
 		}
 		else {
-			return "very bad";
+			return VERYBAD;
 		}
 	}
-
+	
 	public int getAqi() {
 		return aqi;
 	}
-
+	
 	public void setAqi(int aqi) {
 		this.aqi = aqi;
 	}
 	public String evalAQI(){
 		if (aqi<=50){
-			return "good";
+			return GOOD;
 		}
 		else if (aqi<=100){
 			return "moderate";
@@ -242,10 +248,9 @@ public class AirQuality {
 		this.country = country;
 	}
 	public boolean checkExpiry(Instant t2, int expiry){
-		System.out.println(this.timestamp+"-"+t2);
 		Duration between=Duration.between(this.timestamp, t2);
 		long secs = between.getSeconds();
-		return (secs>expiry) ? true : false ;
+		return (secs>expiry) ;
 	}
 
 	public Long getId() {

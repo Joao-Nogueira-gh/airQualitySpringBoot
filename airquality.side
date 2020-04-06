@@ -1,0 +1,327 @@
+{
+  "id": "01210587-3625-4091-9360-9858bdb3db00",
+  "version": "2.0",
+  "name": "airquality",
+  "url": "http://localhost:8080",
+  "tests": [{
+    "id": "b10363a5-85e9-48d5-b236-31d0de21c0bf",
+    "name": "testBasicFunctionsAndCaching",
+    "commands": [{
+      "id": "19dfe07e-e0e5-4c71-bd26-8ed8bde0be2e",
+      "comment": "",
+      "command": "open",
+      "target": "/home",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "821b47b6-a8ce-42b6-b0ab-106525bdecfa",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1477x805",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a5837a36-ba78-4532-95a9-084ccf255fb7",
+      "comment": "",
+      "command": "click",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74ca6434-1c1e-41e2-81b1-3833904c53a9",
+      "comment": "",
+      "command": "type",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Coimbra"
+    }, {
+      "id": "7bb924f6-ea1f-409e-871b-8840cd8c5bf9",
+      "comment": "",
+      "command": "click",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dcbff3a0-8ea4-4df5-98af-fdbe7fb1c4bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": "Portugal"
+    }, {
+      "id": "492c05f4-e34f-467d-9a95-f07ac70797c6",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(3) > input",
+      "targets": [
+        ["css=p:nth-child(3) > input", "css:finder"],
+        ["xpath=//input[@value='Check']", "xpath:attributes"],
+        ["xpath=//p[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6ed4d35-a664-4d8e-a6ea-944aa7abf4a1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(1)",
+      "targets": [],
+      "value": "Number of requests : 1"
+    }, {
+      "id": "3f9df6ec-9519-4ed3-8a63-0f8789e2862f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.headerResult:nth-child(2)",
+      "targets": [],
+      "value": "Hits : 0"
+    }, {
+      "id": "4011ea80-492c-4e95-9f3a-34d1c08a8b13",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(3)",
+      "targets": [],
+      "value": "Misses : 1"
+    }, {
+      "id": "b240d260-d8f4-43b9-9cca-7049b126d95e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Go back",
+      "targets": [
+        ["linkText=Go back", "linkText"],
+        ["css=.headerResult > .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Go back')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/home')])[2]", "xpath:href"],
+        ["xpath=//h4/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Go back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffd94c3d-9dd8-4576-9f64-8d6f2eb44865",
+      "comment": "",
+      "command": "click",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "78c43249-41c0-463c-aa61-0ebd12fc2388",
+      "comment": "",
+      "command": "type",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Coimbra"
+    }, {
+      "id": "a2038124-93b4-4203-be39-195effa30c5f",
+      "comment": "",
+      "command": "click",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "54d91e88-74b6-4047-af81-229b773ab05c",
+      "comment": "",
+      "command": "type",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": "Portugal"
+    }, {
+      "id": "31ddc481-d44a-4aaf-a881-753f58e3234a",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(3) > input",
+      "targets": [
+        ["css=p:nth-child(3) > input", "css:finder"],
+        ["xpath=//input[@value='Check']", "xpath:attributes"],
+        ["xpath=//p[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0dba4750-0234-47bb-92e5-60f7d06096e7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(1)",
+      "targets": [],
+      "value": "Number of requests : 2"
+    }, {
+      "id": "b15a3bf3-c772-4993-ac6c-79cacc909498",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.headerResult:nth-child(2)",
+      "targets": [],
+      "value": "Hits : 1"
+    }, {
+      "id": "3216e75d-a2ad-4a45-862c-c0502e5f684e",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(3)",
+      "targets": [
+        ["css=.w3-display-right > .headerResult:nth-child(3)", "css:finder"],
+        ["xpath=//h3[3]", "xpath:position"],
+        ["xpath=//h3[contains(.,'Misses : 5')]", "xpath:innerText"]
+      ],
+      "value": "Misses : 1"
+    }, {
+      "id": "f585f8b3-07a9-4afb-99b5-97d38fadd699",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Go back",
+      "targets": [
+        ["linkText=Go back", "linkText"],
+        ["css=.headerResult > .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Go back')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/home')])[2]", "xpath:href"],
+        ["xpath=//h4/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Go back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0926f752-49ba-4d06-b1b2-cfd494ed946b",
+      "comment": "",
+      "command": "click",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "911bdbbb-b19d-4733-8c7a-4f1c8fd45df8",
+      "comment": "",
+      "command": "type",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Kanpur"
+    }, {
+      "id": "8c1363f7-8d25-45fc-b2f8-a75dd8780ea5",
+      "comment": "",
+      "command": "click",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "26e5c65c-79eb-40c0-84c1-75c55b5d23d2",
+      "comment": "",
+      "command": "type",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": "India"
+    }, {
+      "id": "f3b90aad-906a-47b3-8c4d-9acbb732c5ff",
+      "comment": "",
+      "command": "click",
+      "target": "css=p:nth-child(3) > input",
+      "targets": [
+        ["css=p:nth-child(3) > input", "css:finder"],
+        ["xpath=//input[@value='Check']", "xpath:attributes"],
+        ["xpath=//p[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fec7d30c-23bf-49e4-8911-a702c69f56b1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(1)",
+      "targets": [],
+      "value": "Number of requests : 3"
+    }, {
+      "id": "512dad28-ebe4-46a8-a7d3-fb093e358cf3",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.headerResult:nth-child(2)",
+      "targets": [
+        ["css=.headerResult:nth-child(2)", "css:finder"],
+        ["xpath=//h3[2]", "xpath:position"],
+        ["xpath=//h3[contains(.,'Hits : 2')]", "xpath:innerText"]
+      ],
+      "value": "Hits : 1"
+    }, {
+      "id": "ef534336-9756-4f78-a9ac-a9c1007f93fb",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.w3-display-right > .headerResult:nth-child(3)",
+      "targets": [
+        ["css=.w3-display-right > .headerResult:nth-child(3)", "css:finder"],
+        ["xpath=//h3[3]", "xpath:position"],
+        ["xpath=//h3[contains(.,'Misses : 5')]", "xpath:innerText"]
+      ],
+      "value": "Misses : 2"
+    }]
+  }],
+  "suites": [{
+    "id": "f2cbbf40-b599-4445-a8f0-7251ef4674cc",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["b10363a5-85e9-48d5-b236-31d0de21c0bf"]
+  }],
+  "urls": ["http://localhost:8080/"],
+  "plugins": []
+}

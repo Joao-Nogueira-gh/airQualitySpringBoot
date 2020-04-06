@@ -11,17 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,18 +62,14 @@ public class AirQualityControllerAPITest {
         String testCountry="France";
 
         mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        when(aqService.getNReq()).thenReturn(1);
-
-        when(aqService.getHits()).thenReturn(0);
-
-        when(aqService.getMisses()).thenReturn(1);
-
+        given(aqService.exists(testCity, testCountry)).willReturn(true);
         mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        when(aqService.getNReq()).thenReturn(2);
+        
+        Mockito.verify(aqService, VerificationModeFactory.times(2)).nreq();
+        Mockito.verify(aqService, VerificationModeFactory.times(1)).hit();
+        Mockito.verify(aqService, VerificationModeFactory.times(1)).miss();
 
-        when(aqService.getHits()).thenReturn(1);
-
-        when(aqService.getMisses()).thenReturn(1);
+        Mockito.verify(aqService, VerificationModeFactory.times(2)).checkAllExpiry();
 
         reset(aqService);
     }
@@ -93,11 +81,9 @@ public class AirQualityControllerAPITest {
 
         mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
         
-        when(aqService.getNReq()).thenReturn(1);
-
-        when(aqService.getHits()).thenReturn(0);
-
-        when(aqService.getMisses()).thenReturn(1);
+        Mockito.verify(aqService, VerificationModeFactory.times(1)).nreq();
+        Mockito.verify(aqService, VerificationModeFactory.times(0)).hit();
+        Mockito.verify(aqService, VerificationModeFactory.times(1)).miss();
 
         reset(aqService);
     }
@@ -108,32 +94,17 @@ public class AirQualityControllerAPITest {
         String testCountry="France";
 
         mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        
-        when(aqService.getNReq()).thenReturn(1);
-
-        when(aqService.getHits()).thenReturn(0);
-
-        when(aqService.getMisses()).thenReturn(1);
-
-        //
-        aqService.setExpiry(2);
-        Thread.sleep(2000);
-
+        //assume passage of time (ttl)
+        given(aqService.exists(testCity, testCountry)).willReturn(true);
+        mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        given(aqService.exists(testCity, testCountry)).willReturn(false);
         mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
         
-        when(aqService.getNReq()).thenReturn(2);
+        Mockito.verify(aqService, VerificationModeFactory.times(3)).nreq();
+        Mockito.verify(aqService, VerificationModeFactory.times(1)).hit();
+        Mockito.verify(aqService, VerificationModeFactory.times(2)).miss();
 
-        when(aqService.getHits()).thenReturn(1);
-
-        when(aqService.getMisses()).thenReturn(1);
-
-        mvc.perform(get("/home/api?city="+testCity+"&country="+testCountry).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        
-        when(aqService.getNReq()).thenReturn(3);
-
-        when(aqService.getHits()).thenReturn(1);
-
-        when(aqService.getMisses()).thenReturn(2);
+        Mockito.verify(aqService, VerificationModeFactory.times(3)).checkAllExpiry();
 
         reset(aqService);
     }
